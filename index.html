@@ -229,10 +229,10 @@ const hh=(i,j)=>{const x=Math.sin(i*127.1+j*311.7)*43758.5453;return x-Math.floo
 const wt=(i,j)=>{if(inA(i,j))return false;const u=i-11,v=j-11,r=Math.max(Math.abs(u),Math.abs(v));if(r==8||r==9)return true;if(r>=10&&r<=15&&(Math.abs(v)<=1||(Math.abs(u)<=1&&v<0)))return true;return r==16||r==17};
 function makeRailRoute(points){const P=[];for(let n=0;n<points.length;n++){const a=points[n],b=points[(n+1)%points.length],dx=Math.sign(b[0]-a[0]),dy=Math.sign(b[1]-a[1]);let x=a[0],y=a[1];while(x!==b[0]||y!==b[1]){P.push([x,y,dx!==0?1:0]);if(x!==b[0])x+=dx;else y+=dy}}return P}
 const TRKS=[
-  makeRailRoute([[23,7],[23,-1],[0,-1],[0,23],[23,23],[23,7]]),
-  makeRailRoute([[20,5],[20,1],[3,1],[3,21],[20,21],[20,5]]),
-  makeRailRoute([[17,3],[17,4],[5,4],[5,19],[17,19],[17,3]]),
-  makeRailRoute([[14,2],[14,7],[8,7],[8,17],[14,17],[14,2]])
+  makeRailRoute([[23,2],[23,21],[2,21],[2,2],[23,2]]),
+  makeRailRoute([[21,4],[21,19],[4,19],[4,4],[21,4]]),
+  makeRailRoute([[19,6],[19,17],[6,17],[6,6],[19,6]]),
+  makeRailRoute([[17,8],[17,15],[8,15],[8,8],[17,8]])
 ];
 const TRK=TRKS[0],TRK_ALL=TRKS.flat(),TRM=new Map(TRK_ALL.map(p=>[p[0]+','+p[1],p[2]]));
 function royalCity(){const C={},put=(i,j,t)=>{if(inM(i,j)||inA(i,j))return;C[i+','+j]=t};
@@ -382,7 +382,7 @@ if(typeof THREE!='undefined'){const _sh=THREE.Color.prototype.setHex;THREE.Color
 function raw(h){return new THREE.Color(h).convertLinearToSRGB()}
 let FLG=[],WV=[],WB=[],WBm=[],BIRDS=[],PUF,HS3=[],NH3=[],AF=null,WMAT,LGP,LGU,BOATS=[],CSH=[],SUNW,SUNO;const SW={value:0};
 function sway(m){m.customProgramCacheKey=()=>'sway';m.onBeforeCompile=sh=>{sh.uniforms.uT=SW;sh.vertexShader='uniform float uT;\n'+sh.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\n#ifdef USE_INSTANCING\ntransformed.x+=sin(uT*1.4+instanceMatrix[3].x*.9+instanceMatrix[3].z*.6)*.25*(transformed.y+.5);\n#endif')}}
-let K3=false,r3=null,sc3,cam3,hemi,sun3,G3=null,PM,DM,dirty3=1,yaw=.59,pit=.83,dst=40,tg={x:11.5,z:11.5},ptr=new Map();const GEO={},c3=document.getElementById('c3');
+let K3=false,r3=null,sc3,cam3,hemi,sun3,G3=null,PM,DM,dirty3=1,yaw=.59,pit=.83,dst=55,tg={x:11.5,z:11.5},ptr=new Map();const GEO={},c3=document.getElementById('c3');
 const SM2=o=>new THREE.MeshStandardMaterial(Object.assign({flatShading:true,roughness:.95,metalness:0},o));
 const PT={water:[['b',0x3a8c88,1,.05,1,0],['b',0x9fd6cf,.35,.01,.04,.052,-.15,-.1],['b',0x9fd6cf,.3,.01,.04,.052,.2,.2]],house:[['b',0xe8dfc4,.76,.6,.76,0],['p',0x4f7f86,1,.55,1,.6],['b',0xe8dfc4,.14,.4,.14,.85,.2,-.1],['b',0x5a4028,.18,.34,.03,0,-.1,.39]],noble:[['b',0xe8dfc4,.94,1.4,.94,0],['p',0x3f6f78,1.1,1,1.1,1.4],['b',0x5a4028,.22,.5,.03,0,0,.48],['b',0xe8dfc4,.16,.5,.16,1.15,.25,.1]],hospital:[['b',0xf2eee6,.9,1.1,.9,0],['p',0x4f7f86,1.05,.45,1.05,1.1],['b',0xdd2222,.14,.6,.04,.3,0,.46],['b',0xdd2222,.5,.14,.04,.55,0,.46]],barracks:[['b',0xd8cfb4,.9,.8,.9,0],['p',0x4f7f86,1.05,.5,1.05,.8],['b',0x5a3a2a,.3,.45,.03,0,0,.46]],tower:[['c',0xd8cfb4,.7,2.2,.7,0],['k',0x4f7f86,.9,1.3,.9,2.2]],wall:[['b',0xd8cfb4,1,.9,1,0]],keep:[['b',0xd8cfb4,.9,2,.9,0],['p',0x4f7f86,1.1,1.1,1.1,2]],farm:[['b',0xcfae3c,1,.06,1,0],['b',0xe8c85a,.25,.25,.25,.06,.2,.2]],mine:[['b',0x6a6a6a,.8,.5,.8,0]],market:[['b',0x6a4a2a,.8,.5,.8,0],['p',0x4f7f86,1,.35,1,.5]],windmill:[['b',0xcbbd98,.6,1.3,.6,0],['p',0x4f7f86,.85,.7,.85,1.3]],pen:[['b',0x8fa043,1,.05,1,0],['s',0xf4f4ee,.25,.2,.3,.05,-.2,0],['s',0xf4f4ee,.25,.2,.3,.05,.2,.2]],fountain:[['c',0xc9c3b0,.9,.3,.9,0],['c',0x5fb0e8,.7,.32,.7,0]],road:[['b',0xe0d6b4,1,.04,1,0]],bridgeI:[['b',0xe4dcc0,1,.4,1,0],['b',0xd0c49e,1,.03,1,.4],['b',0xcfc6a8,1,.3,.12,.4,0,-.44],['b',0xcfc6a8,1,.3,.12,.4,0,.44],['b',0x16242c,.5,.25,.02,0,0,.51],['b',0x16242c,.5,.25,.02,0,0,-.51]],bridgeJ:[['b',0xe4dcc0,1,.4,1,0],['b',0xd0c49e,1,.03,1,.4],['b',0xcfc6a8,.12,.3,1,.4,-.44,0],['b',0xcfc6a8,.12,.3,1,.4,.44,0],['b',0x16242c,.02,.25,.5,0,.51,0],['b',0x16242c,.02,.25,.5,0,-.51,0]],railH:[['b',0x8a8070,1,.05,1,0],['b',0xcfd2d6,1,.06,.06,.05,0,-.2],['b',0xcfd2d6,1,.06,.06,.05,0,.2]],railV:[['b',0x8a8070,1,.05,1,0],['b',0xcfd2d6,.06,.06,1,.05,-.2,0],['b',0xcfd2d6,.06,.06,1,.05,.2,0]],tree:[['c',0x66543c,.12,.75,.12,0],['s',0x588245,.5,.48,.5,.44,.15,0],['s',0x6d8a40,.5,.48,.5,.57,.046,.143],['s',0x4b763a,.5,.48,.5,.44,-.121,.088],['s',0x7a914b,.5,.48,.5,.57,-.121,-.088],['s',0x386741,.5,.48,.5,.44,.046,-.143],['s',0x638645,.46,.46,.46,.67]],pine:[['c',0x66543c,.12,.4,.12,0],['k',0x386741,.64,.54,.64,.23],['k',0x456c39,.5,.54,.5,.47],['k',0x4b763a,.36,.54,.36,.71]],rock:[['s',0xcdc6ae,.7,.5,.6,0]]};
 PT.railHb=PT.railH.map(p=>{const q=p.slice();q[5]+=.4;return q});PT.railVb=PT.railV.map(p=>{const q=p.slice();q[5]+=.4;return q});
